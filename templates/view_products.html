@@ -1,0 +1,42 @@
+{% extends 'admin_base.html' %}
+{% block title %}All Products{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <h2>🛍️ All Products</h2>
+<div class="mb-3">
+  <a href="{{ url_for('admin.Admin_dashboard') }}" class="btn btn-outline-secondary">⬅️ Back to Dashboard</a>
+</div>
+
+  {% if products %}
+    <ul class="list-group">
+      {% for product in products %}
+        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+          <div class="d-flex align-items-center gap-3">
+            <!-- Show the product image -->
+            <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}" style="width: 120px; height: auto;">
+
+            <!-- Show name and price -->
+            <div>
+              <strong>{{ product.name }}</strong><br>
+              ₦{{ product.price }}<br>
+              <small class="text-muted">
+                {{ product.category.name if product.category else 'No Category' }}
+              </small>
+              <small><a href="{{ url_for('admin.select_product', id=product.id) }}" class="text-decoration-none text-info">🔍 View Details</a></small>
+            </div>
+          </div>
+
+          <!-- Action buttons -->
+          <div class="btn-group mt-2 mt-md-0" role="group">
+            <a href="{{ url_for('admin.select_product', id=product.id) }}" class="btn btn-sm btn-outline-info">🔍 View</a>
+            <a href="{{ url_for('admin.update_product', id=product.id) }}" class="btn btn-sm btn-outline-warning">✏️ Edit</a>
+            <a href="{{ url_for('admin.delete_product', id=product.id) }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Delete this product?')">❌ Delete</a>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="alert alert-warning mt-4">No products found.</div>
+  {% endif %}
+</div>
+{% endblock %}

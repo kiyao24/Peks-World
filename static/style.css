@@ -1,0 +1,25 @@
+:root {
+    --bg-color-light: #f8f9fa;
+    --text-color-light: #212529;
+    --bg-color-dark: #121212;
+    --text-color-dark: #f8f9fa;
+}
+
+html[data-theme='light'] {
+    background-color: var(--bg-color-light);
+    color: var(--text-color-light);
+}
+
+html[data-theme='dark'] {
+    background-color: var(--bg-color-dark);
+    color: var(--text-color-dark);
+}
+
+body {
+    background-color: inherit;
+    color: inherit;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+
+

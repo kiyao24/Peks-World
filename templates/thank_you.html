@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+{% block title %}Order Confirmation{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="text-center mb-4">
+    <h1 class="text-success display-4">✅ Thank You!</h1>
+    <p class="lead">Your order <strong>₦{{ order.id }}</strong> was placed successfully.</p>
+  </div>
+
+  <div class="card shadow p-4">
+    <h4>🧾 Order Summary</h4>
+
+    <table class="table table-striped mt-3">
+      <thead class="table-light">
+        <tr>
+          <th>Item</th>
+          <th class="text-center">Qty</th>
+          <th class="text-end">Unit Price</th>
+          <th class="text-end">Subtotal</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in order.items %}
+        <tr>
+          <td>{{ item.product.name }}</td>
+          <td class="text-center">{{ item.quantity }}</td>
+          <td class="text-end">₦{{ '%.2f' % item.price }}</td>
+          <td class="text-end">₦{{ '%.2f' % (item.quantity * item.price) }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <div class="mt-4">
+      <ul class="list-group">
+        <li class="list-group-item d-flex justify-content-between">
+          <span>Subtotal</span>
+          <span>₦{{ '%.2f' % order.subtotal }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <span>Tax</span>
+          <span>₦{{ '%.2f' % order.tax }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+          <span>Shipping</span>
+          <span>₦{{ '%.2f' % order.shipping_fee }}</span>
+        </li>
+        {% if order.discount %}
+        <li class="list-group-item d-flex justify-content-between text-success">
+          <span>Discount</span>
+          <span>−₦{{ '%.2f' % order.discount }}</span>
+        </li>
+        {% endif %}
+        <li class="list-group-item d-flex justify-content-between fw-bold fs-5">
+          <span>Total</span>
+          <span>₦{{ '%.2f' % order.total_amount }}</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="{{ url_for('defaulthomepage') }}" class="btn btn-primary">
+        🏠 Return to Homepage
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

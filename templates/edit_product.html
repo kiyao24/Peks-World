@@ -1,0 +1,43 @@
+{% extends 'admin_base.html' %}
+{% block title %}Edit Product{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <h2 class="mb-4">✏️ Edit Product</h2>
+
+  <form method="POST" enctype="multipart/form-data" class="bg-white p-4 rounded shadow-sm">
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+      <label class="form-label">{{ form.name.label }}</label>
+      {{ form.name(class="form-control", placeholder="Product name") }}
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">{{ form.price.label }}</label>
+      {{ form.price(class="form-control", placeholder="Price in Naira") }}
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">{{ form.category_id.label }}</label>
+      {{ form.category_id(class="form-select") }}
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">{{ form.image.label }}</label>
+      {{ form.image(class="form-control") }}
+    </div>
+
+    {% if product.image %}
+    <div class="mb-3">
+      <label class="form-label">Current Image:</label><br>
+      <img src="{{ url_for('static', filename=product.image) }}" alt="Product Image" class="img-thumbnail" width="150">
+    </div>
+    {% endif %}
+
+    <div class="mt-4">
+      {{ form.submit(class="btn btn-primary w-100") }}
+    </div>
+  </form>
+</div>
+{% endblock %}

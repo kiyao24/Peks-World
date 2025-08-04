@@ -1,0 +1,40 @@
+{% extends 'admin_base.html' %}
+{% block title %}All Orders{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <h2>📦 All Orders</h2>
+
+  {% if orders %}
+  <table class="table table-striped table-bordered bg-white">
+    <thead class="table-light">
+      <tr>
+        <th>Order ID</th>
+        <th>User</th>
+        <th>Total</th>
+        <th>Date</th>
+        <th>Items</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for order in orders %}
+      <tr>
+        <td>{{ order.id }}</td>
+        <td>{{ order.user.username if order.user else 'N/A' }}</td>
+        <td>${{ '%.2f' % order.total }}</td>
+        <td>{{ order.created_at.strftime('%Y-%m-%d %H:%M') }}</td>
+        <td>
+          <ul class="mb-0">
+            {% for item in order.items %}
+            <li>{{ item.quantity }} × {{ item.product.name if item.product else 'Unknown' }} @ ${{ '%.2f' % item.price }}</li>
+            {% endfor %}
+          </ul>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <div class="alert alert-warning">No orders yet.</div>
+  {% endif %}
+</div>
+{% endblock %}

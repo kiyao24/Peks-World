@@ -1,0 +1,26 @@
+{% extends 'admin_base.html' %}
+{% block title %}All Users{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <h2>👥 All Users</h2>
+  <div class="mb-3">
+  <a href="{{ url_for('admin.Admin_dashboard') }}" class="btn btn-outline-secondary">⬅️ Back to Dashboard</a>
+</div>
+
+  {% if users %}
+    <ul class="list-group">
+      {% for user in users %}
+        <li class="list-group-item d-flex justify-content-between">
+          {{ user.First_name }} {{ user.Last_name }} - {{ user.email }}
+          <span>
+            <a href="{{ url_for('admin.update_user', id=user.id) }}" class="btn btn-sm btn-warning">Edit</a>
+            <a href="{{ url_for('admin.delete_user', id=user.id) }}" class="btn btn-sm btn-danger">Delete</a>
+          </span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="alert alert-warning">No users found.</div>
+  {% endif %}
+</div>
+{% endblock %}

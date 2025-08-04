@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}CREATE AN ACCOUNT{% endblock %}
+
+{% block content %}
+<div class="max-w-xl mx-auto bg-white shadow rounded-lg p-6 mt-10">
+  <h2 class="text-2xl font-semibold text-center mb-6 text-pink-700">Create New Customer Account</h2>
+
+  <form method="POST" class="space-y-4">
+    {{ form.hidden_tag() }}
+
+    <div>
+      {{ form.First_name.label(class="block text-sm font-medium text-gray-700") }}
+      {{ form.First_name(class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500") }}
+    </div>
+
+    <div>
+      {{ form.Last_name.label(class="block text-sm font-medium text-gray-700") }}
+      {{ form.Last_name(class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500") }}
+    </div>
+
+    <div>
+      {{ form.username.label(class="block text-sm font-medium text-gray-700") }}
+      {{ form.username(class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500") }}
+    </div>
+
+    <div>
+      {{ form.email.label(class="block text-sm font-medium text-gray-700") }}
+      {{ form.email(class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500") }}
+    </div>
+
+    <div>
+      {{ form.phone.label(class="block text-sm font-medium text-gray-700") }}
+      {{ form.phone(class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500") }}
+    </div>
+
+    <div>
+      {{ form.address.label(class="block text-sm font-medium text-gray-700") }}
+      {{ form.address(class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500") }}
+    </div>
+
+    <div>
+      {{ form.password.label(class="block text-sm font-medium text-gray-700") }}
+      {{ form.password(class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-pink-500 focus:border-pink-500") }}
+    </div>
+
+    <div>
+      {{ form.submit(class="w-full bg-pink-600 hover:bg-pink-700 text-white font-medium py-2 px-4 rounded-md") }}
+    </div>
+  </form>
+
+  <p class="text-center text-sm mt-4 text-gray-600">
+    Already Have An Account?
+    <a href="{{ url_for('user.login') }}" class="text-pink-600 hover:underline">Login</a>
+  </p>
+</div>
+{% endblock %}

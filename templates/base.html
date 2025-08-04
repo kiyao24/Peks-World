@@ -1,0 +1,169 @@
+<!-- base.html with sticky header and nav search -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Welcome To Peks Collections{% endblock %}</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+  <!-- Top Banner -->
+  <div class="bg-pink-600 text-white text-sm text-center py-2">
+    Free shipping on orders over ₦100,000!
+  </div>
+  
+  <!-- Sticky Header -->
+  <!-- Sticky Header -->
+<header class="sticky top-0 z-50 bg-white shadow-sm">
+  <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+
+    <!-- Logo -->
+    <a href="{{ url_for('defaulthomepage') }}" class="flex items-center gap-2 text-pink-700 text-xl font-bold hover:text-pink-600">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-pink-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0-1.657 1.343-3 3-3s3 1.343 3 3-1.343 3-3 3-3-1.343-3-3zm-7 3.5a5.5 5.5 0 0111 0c0 3-5.5 6-5.5 6S5 17.5 5 14.5z" />
+      </svg>
+      <span class="tracking-wide">Peks <span class="text-pink-500">Collections</span></span>
+    </a>
+
+    <!-- Hamburger Menu for Mobile -->
+    <button id="menuBtn" class="lg:hidden text-pink-700 focus:outline-none">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+      </svg>
+    </button>
+
+    <!-- Navigation Links -->
+    <div id="navMenu" class="hidden lg:flex flex-col lg:flex-row items-start lg:items-center gap-4 lg:gap-6 w-full lg:w-auto mt-4 lg:mt-0">
+      
+      <!-- Categories Dropdown -->
+      <div class="relative">
+        <button class="peer bg-pink-100 text-pink-700 px-4 py-2 rounded hover:bg-pink-200 w-full lg:w-auto">
+          All Categories
+        </button>
+        <ul class="absolute left-0 mt-2 w-48 bg-white border rounded shadow hidden peer-hover:block hover:block z-50">
+          {% for cat in categories %}
+          <li>
+            <a href="{{ url_for('defaulthomepage', category=cat.id) }}" class="block px-4 py-2 hover:bg-pink-50">
+              {{ cat.name }}
+            </a>
+          </li>
+          {% endfor %}
+        </ul>
+      </div>
+
+      <!-- Static Links -->
+      <nav class="flex flex-col lg:flex-row items-start lg:items-center gap-3 lg:gap-4 text-pink-700 font-medium">
+        <a href="{{ url_for('defaulthomepage') }}" class="hover:underline">Home</a>
+        <a href="#" class="hover:underline">Contact</a>
+
+        {% if current_user.is_authenticated %}
+        <!-- Profile Dropdown -->
+        <div class="relative">
+          <button class="peer flex items-center gap-2 focus:outline-none">
+            <img src="{{ url_for('static', filename='img/profile.jpg') }}"
+                 alt="Avatar"
+                 class="w-8 h-8 rounded-full object-cover border border-pink-300" />
+            <span class="text-sm text-pink-700">{{ current_user.username }}</span>
+          </button>
+
+          <!-- Dropdown Menu -->
+          <ul class="absolute right-0 mt-2 w-40 bg-white border rounded shadow hidden peer-hover:block hover:block text-sm z-50">
+            <li><a href="{{ url_for('user.dashboard') }}" class="block px-4 py-2 hover:bg-pink-50">Dashboard</a></li>
+            <li><a href="{{ url_for('settings.settings_dashboard') }}" class="block px-4 py-2 hover:bg-pink-50">Edit Profile</a></li>
+            <li><a href="{{ url_for('user.logout') }}" class="block px-4 py-2 hover:bg-pink-50 text-red-600">Logout</a></li>
+          </ul>
+        </div>
+
+        <!-- Notification -->
+        <a href="{{ url_for('settings.settings_dashboard') }}" class="relative text-pink-700">
+          🔔
+          {% if unread_notifications > 0 %}
+          <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold px-1.5 py-0.5 rounded-full">
+            {{ unread_notifications }}
+          </span>
+          {% endif %}
+        </a>
+        {% else %}
+        <a href="{{ url_for('user.login') }}" class="hover:underline">Login</a>
+        <a href="{{ url_for('user.register') }}" class="hover:underline">Register</a>
+        {% endif %}
+      </nav>
+
+      <!-- Cart -->
+      <a href="{{ url_for('view_cart') }}" class="relative flex items-center gap-2 text-pink-700 hover:text-pink-600 transition mt-3 lg:mt-0">
+        <div class="relative">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7 text-pink-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-1.5 7h11L17 13M9 21a1 1 0 100-2 1 1 0 000 2zm6 0a1 1 0 100-2 1 1 0 000 2z" />
+          </svg>
+          <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs font-semibold rounded-full px-1.5 py-0.5 shadow cart-badge {% if cart_count == 0 %}hidden{% endif %}">
+            {{ cart_count }}
+          </span>
+        </div>
+        <span class="hidden sm:inline font-semibold">View Cart</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-6">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+          <div class="alert alert-{{ category }}">{{ message }}</div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+  </main>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // Attach AJAX to all Add-to-Cart buttons
+    document.querySelectorAll('.add-to-cart').forEach(button => {
+      button.addEventListener('click', function(e) {
+        e.preventDefault();
+
+        const productId = this.dataset.productId;
+
+        fetch(`/add_to_cart/${productId}`, {
+          method: 'POST',
+          headers: {
+            'X-Requested-With': 'XMLHttpRequest',
+            'Content-Type': 'application/json'
+          },
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (data.success) {
+            // Update cart badge
+            const badge = document.querySelector('.cart-badge');
+            if (badge) {
+              badge.textContent = data.cart_count;
+              badge.classList.remove('hidden');
+            }
+
+            // Optional flash-style notification
+            const alert = document.createElement('div');
+            alert.className = 'alert alert-success fixed top-4 right-4 bg-green-100 border px-4 py-2 rounded shadow z-50';
+            alert.textContent = data.message || "Item added!";
+            document.body.appendChild(alert);
+            setTimeout(() => alert.remove(), 3000);
+          }
+        });
+      });
+    });
+  });
+</script>
+<script>
+  document.getElementById('menuBtn').addEventListener('click', () => {
+    const nav = document.getElementById('navMenu');
+    nav.classList.toggle('hidden');
+  });
+</script>
+
+  
+</body>
+</html>

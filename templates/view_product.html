@@ -1,0 +1,14 @@
+{% extends 'admin_base.html' %}
+{% block title %}{{ product.name }}{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <div class="mb-3">
+  <a href="{{ url_for('admin.dashboard') }}" class="btn btn-outline-secondary">⬅️ Back to Dashboard</a>
+</div>
+  <h2>{{ product.name }}</h2>
+  <img src="{{ url_for('static', filename=product.image) }}" style="max-width: 300px;" alt="{{ product.name }}">
+  <p><strong>Price:</strong> ₦{{ product.price }}</p>
+  <p><strong>Category:</strong> {{ product.category.name if product.category else 'No Category' }}</p>
+  <p><strong>Description:</strong> {{ product.description }}</p>
+</div>
+{% endblock %}

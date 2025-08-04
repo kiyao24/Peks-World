@@ -1,0 +1,28 @@
+version: '3.9'
+
+services:
+  web:
+    build: .
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    environment:
+      FLASK_ENV: development
+      SECRET_KEY: 'Your_random_key'
+      SQLALCHEMY_DATABASE_URI: 'postgresql://peks_user:xiTbA6YDj7jOqTBT6nTTLhJohm7l5k18@dpg-d289tok9c44c73a851kg-a.oregon-postgres.render.com/peks'
+      PAYSTACK_SECRET_KEY: 'sk_test_345d02ec000f8a65fe833ff2719fc57e694c9a9f'
+    depends_on:
+      - db
+
+  db:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: flaskdb
+      POSTGRES_USER: flaskuser
+      POSTGRES_PASSWORD: flaskpass
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

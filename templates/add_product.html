@@ -1,0 +1,41 @@
+{% extends 'admin_base.html' %}
+{% block title %}Add Product{% endblock %}
+
+{% block content %}
+<div class="container py-4">
+  <h2 class="mb-4">🛒 Add New Product</h2>
+
+  <form method="POST"enctype="multipart/form-data" class="border p-4 rounded shadow-sm bg-light">
+    {{ form.hidden_tag() }}
+
+    <div class="mb-3">
+      {{ form.name.label(class="form-label") }}
+      {{ form.name(class="form-control", placeholder="Enter product name") }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.price.label(class="form-label") }}
+      {{ form.price(class="form-control", placeholder="Enter price") }}
+    </div>
+
+    <div class="mb-3">
+      {{ form.image.label(class="form-label") }}
+      {{ form.image(class="form-control", placeholder="Enter image URL") }}
+    </div>
+
+    
+    <div class="mb-3">
+      {{ form.description.label(class="form-label") }}
+      {{ form.description(class="form-control", placeholder="Enter product description") }}
+    </div>
+    
+    <div class="mb-3">
+  {{ form.category_id.label(class="form-label") }}
+  {{ form.category_id(class="form-select") }}
+</div>
+
+    <button type="submit" class="btn btn-success">{{ form.submit.label.text }}</button>
+    <a href="{{ url_for('admin.list_products') }}" class="btn btn-secondary ms-2">Cancel</a>
+  </form>
+</div>
+{% endblock %}

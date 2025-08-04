@@ -1,0 +1,26 @@
+{% extends 'admin_base.html' %}
+{% block title %}All Categories{% endblock %}
+{% block content %}
+<div class="container py-4">
+  <h2>📁 All Categories</h2>
+  <div class="mb-3">
+  <a href="{{ url_for('admin.Admin_dashboard') }}" class="btn btn-outline-secondary">⬅️ Back to Dashboard</a>
+</div>
+
+  {% if categories %}
+    <ul class="list-group">
+      {% for cat in categories %}
+        <li class="list-group-item d-flex justify-content-between">
+          {{ cat.name }}
+          <span>
+            <a href="{{ url_for('admin.update_category', id=cat.id) }}" class="btn btn-sm btn-warning">Edit</a>
+            <a href="{{ url_for('admin.delete_category', id=cat.id) }}" class="btn btn-sm btn-danger">Delete</a>
+          </span>
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <div class="alert alert-warning">No categories found.</div>
+  {% endif %}
+</div>
+{% endblock %}

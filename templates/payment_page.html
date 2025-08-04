@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Complete Payment{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto py-10 px-4">
+  <h2 class="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+    💳 Complete Your Payment
+  </h2>
+
+  <div class="bg-white shadow-md rounded-lg p-6 border border-gray-200">
+    <h5 class="text-lg font-semibold mb-2">Order #{{ order.id }}</h5>
+
+    <ul class="text-sm space-y-2 text-gray-700">
+      <li><strong>Total:</strong> ₦{{ '%.2f' % order.total_amount }}</li>
+      <li><strong>Tax:</strong> ₦{{ '%.2f' % order.tax }}</li>
+      <li><strong>Shipping:</strong> ₦{{ '%.2f' % order.shipping_fee }}</li>
+      <li><strong>Discount:</strong> -₦{{ '%.2f' % order.discount }}</li>
+    </ul>
+
+    <hr class="my-4 border-t border-gray-300">
+
+    <p class="text-sm text-gray-600 mb-3">Choose a payment method:</p>
+
+    <div class="flex flex-col sm:flex-row gap-4">
+      <a href="{{ url_for('paystack_pay', order_id=order.id) }}"
+         class="px-5 py-2 rounded bg-green-600 text-white text-sm font-medium hover:bg-green-700 transition">
+        Pay with Paystack
+      </a>
+      <a href="{{ url_for('stripe_pay', order_id=order.id) }}"
+         class="px-5 py-2 rounded bg-blue-600 text-white text-sm font-medium hover:bg-blue-700 transition">
+        Pay with Stripe
+      </a>
+      <a href="{{ url_for('flutterwave_pay', order_id=order.id) }}"
+         class="px-5 py-2 rounded bg-yellow-500 text-white text-sm font-medium hover:bg-yellow-600 transition">
+        Pay with Flutterwave
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}
