@@ -20,11 +20,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['PAYSTACK_SECRET_KEY'] = os.getenv('PAYSTACK_SECRET_KEY')
-# app.config['STRIPE_SECRET_KEY'] = os.getenv("STRIPE_SECRET_KEY")
-# app.config['FLUTTERWAVE_SECRET_KEY'] = os.getenv("FLUTTERWAVE_SECRET_KEY")
-# app.config['FLUTTERWAVE_PUBLIC_KEY'] = os.getenv("FLUTTERWAVE_PUBLIC_KEY")
 
-# stripe.api_key = app.config['STRIPE_SECRET_KEY']
 
 
 user_settings = Blueprint('settings', __name__, url_prefix='/settings')  # New blueprint for user settings
