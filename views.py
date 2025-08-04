@@ -1,5 +1,5 @@
 from flask import Flask, render_template, session, redirect, request, url_for, flash,current_app, jsonify, abort
-from main import *
+from app import *
 from model import *
 from werkzeug.utils import secure_filename
 import os
