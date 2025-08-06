@@ -14,7 +14,7 @@ app = Flask(__name__)
 admin = Blueprint('admin', __name__)
 # defaulthomepage = Blueprint('defaulthomepage', __name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-app.config['SQLALCHEMY_DATABASE_URI'] =  'postgresql://peks_user:xiTbA6YDj7jOqTBT6nTTLhJohm7l5k18@dpg-d289tok9c44c73a851kg-a.oregon-postgres.render.com/peks' # os.getenv('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['PAYSTACK_SECRET_KEY'] = os.getenv('PAYSTACK_SECRET_KEY')
