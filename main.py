@@ -5,9 +5,9 @@ from flask_migrate import Migrate
 from datetime import datetime
 import stripe
 import os
+from dotenv import load_dotenv
 
-
-
+load_dotenv()
 
 app = Flask(__name__)
 # user = Blueprint('auth', __name__, template_folder='templates')
